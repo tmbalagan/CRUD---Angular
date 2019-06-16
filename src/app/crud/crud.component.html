@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="col-sm-4 float-left">
+        <form novalidate [formGroup]="userForm" (ngSubmit)="newUser(userForm)">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
+            <div class="error" *ngIf="userForm.get('email').hasError('required') && userForm.get('email').touched">
+              Email is required
+            </div>
+            <div class="error" *ngIf="userForm.get('email').hasError('pattern')">
+             Enter Valid Email
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="Password" placeholder="Password" formControlName="password">
+            <div class="error" *ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">
+              Password is required
+            </div>
+            <div class="error" *ngIf="userForm.get('password').hasError('pattern')">
+              Password must contain upper,lower, numeric case and min 5 length
+             </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-6 float-right">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Email</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let el of usersList;  index as i">
+              <th>{{i+1}}</th>
+              <td>{{el.email}}</td>
+              <td>{{el.password}}</td>
+              <td><button type="button" class="btn btn-primary" (click)="editUser(el)">Edit</button></td>
+              <td><button type="button" class="btn btn-danger" (click)="deleteUser(i)">Delete</button></td>
+            </tr>            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
